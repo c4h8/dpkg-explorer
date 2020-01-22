@@ -1,11 +1,7 @@
 import React, { useRef } from 'react';
+import parseFile from './parseFile';
 
-
-const fileReader = new FileReader();
-const splitRegex = /\n\n/
-const parseAttribute = function(name) {return new RegExp(`${name}: ([^]*?)(?=\n[^ ])`)
-}
-function FileOpener() {
+function FileOpener({setPackageNames, setPackageMap}) {
   const fileRef = useRef(null);
 
   const onFileChange = (e) => {
@@ -16,26 +12,11 @@ function FileOpener() {
 
     const fileReader = new FileReader();
     fileReader.onloadend = (e) => {
-      //console.log('', fileReader.result.split('\r\n\r\n'))
-      let res = fileReader.result
-        .split('\r\n').join('\n')
-        .split(splitRegex)
-        .map(p => p.concat('\n'))
-
-      console.log('res', res)
-
-      const res2 = res.map(p => ({
-        status: parseAttribute('Status').exec(''+p),
-        version: parseAttribute('Version').exec(''+p),
-        package: parseAttribute('Package').exec(''+p),
-        description: parseAttribute('Description').exec(''+p),
-        maintainer: parseAttribute('Maintainer').exec(''+p),
-      }));
-
-      console.log('asd', res2)
+      const [packageNames, packageMap] = parseFile(fileReader.result)
+      setPackageNames(packageNames)
+      setPackageMap(packageMap)
     }
     fileReader.readAsText(file)
-
   };
 
   return (
@@ -43,7 +24,6 @@ function FileOpener() {
       <input
         ref={fileRef}
         type="file"
-        //style={{display:"none"}}
         onChange={onFileChange}
       />
 

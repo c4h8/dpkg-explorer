@@ -1,5 +1,49 @@
+.appbar {
+  height: 3rem;
+  background-color: gray;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 3rem);
+  max-height: calc(100vh - 3rem);
+}
+
 .packagelist {
+  flex-shrink: 0;
+  background-color: antiquewhite;
+  padding: 0px 30px;
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+ul {
   list-style: none;
   text-align: left;
-  background-color: antiquewhite;
+  padding: 0px;
+  margin: 0px;
+}
+
+.package-details__container {
+  flex-grow: 1;
+  padding: 1.5rem;
+}
+
+.package-details__header {
+  font-size: 2em;
+}
+
+.dependecy-list__header {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.dependecy-list__header {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.dependecy-list > ul {
+  margin: 0px 1rem;
 }

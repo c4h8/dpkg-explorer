@@ -13,9 +13,11 @@ function App() {
     <div className="App">
       <Router>
         <FileOpener setPackageNames={setPackageNames} setPackageMap={setPackageMap} />
-        <div style={{display: 'flex'}}>
+        <div className="content">
           <PackageList packageNames={packageNames} />
-          <Route path="/packages/:packageName" component={PackageDetails} />
+          <Route path="/packages/:packageName" render={(routeProps) => (
+            <PackageDetails packageMap={packageMap} {...routeProps}/>
+          )} />
         </div>
       </Router>
     </div>

@@ -20,7 +20,7 @@ function FileOpener({setPackageNames, setPackageMap}) {
   };
 
   return (
-    <div style={{width: '100%', minHeight: '100px'}}>
+    <div className="appbar">
       <input
         ref={fileRef}
         type="file"

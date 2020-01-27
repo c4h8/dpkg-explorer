@@ -5,8 +5,7 @@ function PackageListItem({ name, description }) {
   console.log('package list item: ', name)
   return (
     <li>
-      <Link to={`/packages/${name}`}>      {name}</Link>
-
+      <Link to={`/packages/${name}`}>{name}</Link>
     </li>
   )
 }

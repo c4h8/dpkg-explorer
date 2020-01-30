@@ -9,9 +9,13 @@ const parsePackage = parseAttribute('Package')
 const parseDescription = parseAttribute('Description')
 const stripVersionNumbers = input => input.replace(/(\s*\([\S\s]+?\))/, '')
 
+const removeDuplicates = (arr) => {
+  return [...(new Set(arr))]
+}
+
 const splitOptionalDeps = input => {
   if(input.includes('|'))
-    return input.split(' | ')
+    return removeDuplicates(input.split(' | ')).sort()
   return input
 }
 
@@ -21,9 +25,11 @@ const parseDependecies = input => {
   if(!res)
     return undefined
   
-  return res.split(', ')
+  return removeDuplicates(res
+    .split(', ')
     .map(stripVersionNumbers)
     .map(splitOptionalDeps)
+    .sort());
 }
 
 function parseFile(file) {
@@ -52,12 +58,14 @@ function parseFile(file) {
     packages.forEach(p => {
       const name = p.name
 
-      p.dependencies && p.dependencies.flat().forEach(dependecy => {
-        if(packageMap[dependecy]) {
-          packageMap[dependecy].reverseDependencies.push(name)
+      p.dependencies && p.dependencies.flat().forEach(dependency => {
+        if(packageMap[dependency]) {
+          packageMap[dependency].reverseDependencies.push(name)
         }
       })
     });
+
+    packages.forEach(p => p.reverseDependencies.sort())
 
     return [undefined, packageNames, packageMap];
 

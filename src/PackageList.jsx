@@ -18,8 +18,9 @@ function PackageList() {
 
   return (
     <ul className="packagelist">
-      {state.packageNames.map((name, i) =>
-        <PackageListItem key={`${name}:::${i}`} name={name} />
+      {console.log("rendered filelist")}
+      {state.packageNames.map(name =>
+        <PackageListItem key={`${name}`} name={name} />
       )}
     </ul>
   )

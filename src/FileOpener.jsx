@@ -1,22 +1,32 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import parseFile from './parseFile';
+import { setPackageData } from './actions';
+import { dispatchContext } from './StoreProvider';
 
-function FileOpener({setPackageNames, setPackageMap}) {
+function FileOpener() {
   const fileRef = useRef(null);
+  const dispatch = useContext(dispatchContext);
 
   const onFileChange = (e) => {
     e.stopPropagation();
     e.preventDefault();
     const file = e.target.files[0];
-    console.log(file);
 
-    const fileReader = new FileReader();
-    fileReader.onloadend = (e) => {
-      const [packageNames, packageMap] = parseFile(fileReader.result)
-      setPackageNames(packageNames)
-      setPackageMap(packageMap)
+    if (file) {
+      const fileReader = new FileReader();
+
+      fileReader.onloadend = (_e) => {
+        const [error, packageNames, packageMap] = parseFile(fileReader.result)
+
+        if(error) {
+          console.log('error in parsing file', error)
+        } else {
+          dispatch(setPackageData(packageNames, packageMap));
+        }
+      }
+
+      fileReader.readAsText(file)
     }
-    fileReader.readAsText(file)
   };
 
   return (
@@ -26,7 +36,6 @@ function FileOpener({setPackageNames, setPackageMap}) {
         type="file"
         onChange={onFileChange}
       />
-
       <button>Open</button>
     </div>
   );

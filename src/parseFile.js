@@ -27,41 +27,43 @@ const parseDependecies = input => {
 }
 
 function parseFile(file) {
-  const packageBlobs = file
-    .split('\r\n').join('\n')
-    .split('\n\n')
-    .map(p => p.concat('\n'))
+  try {
+    const packageBlobs = file
+      .split('\r\n').join('\n')
+      .split('\n\n')
+      .map(p => p.concat('\n'))
 
-  let packages = packageBlobs.map(blob => ({
-    name: parsePackage(blob),
-    description: parseDescription(blob),
-    dependencies: parseDependecies(blob),
-    reverseDependencies: []
-  }));
+    let packages = packageBlobs.map(blob => ({
+      name: parsePackage(blob),
+      description: parseDescription(blob),
+      dependencies: parseDependecies(blob),
+      reverseDependencies: []
+    }));
 
-  const packageNames = packages
-    .map(p => p.name)
-    .sort();
+    const packageNames = packages
+      .map(p => p.name)
+      .sort();
 
-  let packageMap = {}
-  packages.forEach(p => {
-    packageMap[p.name] = p
-  });
+    let packageMap = {}
+    packages.forEach(p => {
+      packageMap[p.name] = p
+    });
 
-  packages.forEach(p => {
-    const name = p.name
+    packages.forEach(p => {
+      const name = p.name
 
-    p.dependencies && p.dependencies.forEach(dependecy => {
-      if(packageMap[dependecy.name]) {
-        // TODO map optional dependencies
-        packageMap[dependecy.name].reverseDependencies.concat(name)
-      }
-    })
-  });
+      p.dependencies && p.dependencies.flat().forEach(dependecy => {
+        if(packageMap[dependecy]) {
+          packageMap[dependecy].reverseDependencies.push(name)
+        }
+      })
+    });
 
-  console.log('res2', packages)
+    return [undefined, packageNames, packageMap];
 
-  return [packageNames, packageMap];
+  } catch(error) {
+    return [error]
+  }
 }
 
 export default parseFile;

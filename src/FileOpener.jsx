@@ -3,6 +3,8 @@ import parseFile from './parseFile';
 import { setPackageData } from './actions';
 import { dispatchContext } from './StoreProvider';
 
+import './fileInput.css';
+
 function FileOpener() {
   const fileRef = useRef(null);
   const dispatch = useContext(dispatchContext);
@@ -35,8 +37,11 @@ function FileOpener() {
         ref={fileRef}
         type="file"
         onChange={onFileChange}
+        id="file-upload"
       />
-      <button>Open</button>
+      <label htmlFor="file-upload" className="file-upload">
+        Upload File
+      </label>
     </div>
   );
 }

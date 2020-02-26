@@ -10,11 +10,11 @@ function DependencyListItem({ dependency, packageMap }) {
         packageMap[optDependecy]
         ? <Link 
             to={`/packages/${optDependecy}`}
-            key={optDependecy}
+            key={`opt-${optDependecy}`}
           >
             {optDependecy}
           </Link>
-        : <p key={optDependecy}>{optDependecy}</p>
+        : <p key={`opt-${optDependecy}`}>{optDependecy}</p>
       ))}
     </li>
   );
@@ -31,16 +31,29 @@ function DependencyListItem({ dependency, packageMap }) {
 }
 
 function DependencyList({ title, packageData, packageMap, accessor }) {
-  return (
+  if (packageData && packageData[accessor] && packageData[accessor].length > 0) {
+    return (
+      <div className="dependecy-list">
+        <p className="dependecy-list__header">{title}</p>
+        <ul>
+          {packageData[accessor].map(dependency => (
+            <DependencyListItem key={dependency} dependency={dependency} packageMap={packageMap} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  return(
     <div className="dependecy-list">
       <p className="dependecy-list__header">{title}</p>
       <ul>
-        {packageData && packageData[accessor] && packageData[accessor].map(dependency => (
-          <DependencyListItem key={dependency} dependency={dependency} packageMap={packageMap} />
-        ))}
+        <li className="dependecy-list__item">
+          <p><i>None</i></p>
+        </li>
       </ul>
     </div>
-  )
+  );
 }
 
 export default DependencyList

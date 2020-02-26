@@ -43,7 +43,7 @@ function parseFile(file) {
       name: parsePackage(blob),
       description: parseDescription(blob),
       dependencies: parseDependecies(blob),
-      reverseDependencies: []
+      reverseDependencies: new Set([])
     }));
 
     const packageNames = packages
@@ -59,13 +59,12 @@ function parseFile(file) {
       const name = p.name
 
       p.dependencies && p.dependencies.flat().forEach(dependency => {
-        if(packageMap[dependency]) {
-          packageMap[dependency].reverseDependencies.push(name)
-        }
+        if(packageMap[dependency])
+          packageMap[dependency].reverseDependencies.add(name)
       })
     });
 
-    packages.forEach(p => p.reverseDependencies.sort())
+    packages.forEach(p => p.reverseDependencies = [...p.reverseDependencies ].sort())
 
     return [undefined, packageNames, packageMap];
 

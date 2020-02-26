@@ -1,9 +1,9 @@
 import React, { useRef, useContext } from 'react';
-import parseFile from './parseFile';
-import { setPackageData } from './actions';
-import { dispatchContext } from './StoreProvider';
+import parseFile from '../parseFile';
+import { setPackageData } from '../actions';
+import { dispatchContext } from '../StoreProvider';
 
-import './fileInput.css';
+import '../Styles/FileInput.css';
 
 function FileOpener() {
   const fileRef = useRef(null);
@@ -16,15 +16,13 @@ function FileOpener() {
 
     if (file) {
       const fileReader = new FileReader();
-
       fileReader.onloadend = (_e) => {
         const [error, packageNames, packageMap] = parseFile(fileReader.result)
 
-        if(error) {
+        if(error)
           console.log('error in parsing file', error)
-        } else {
+        else
           dispatch(setPackageData(packageNames, packageMap));
-        }
       }
 
       fileReader.readAsText(file)

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import './App.css';
+import './Styles/App.css';
 import StoreProvider from './StoreProvider';
-import PackageList from './PackageList';
-import FileOpener from './FileOpener';
-import PackageDetails from './PackageDetails';
+import PackageList from './Components/PackageList';
+import FileOpener from './Components/FileOpener';
+import PackageDetails from './Components/PackageDetails';
 
 function App() {
   return (

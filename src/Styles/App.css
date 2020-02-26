@@ -78,7 +78,6 @@ a:visited {
   content: "or ";
 }
 
-
 .dependecy-list__item--has-options > p:first-child, 
 .dependecy-list__item--has-options > a:first-child {
   margin: 0 0 0 0;

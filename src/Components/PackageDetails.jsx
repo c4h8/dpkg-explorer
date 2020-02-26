@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import DependencyList from './DependecyList';
-import { storeContext } from './StoreProvider';
+import { storeContext } from '../StoreProvider';
 
 function PackageDetails({ match: {params: {packageName}} }) {
   const state = useContext(storeContext)

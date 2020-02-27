@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 
 function DependencyListItem({ dependency, packageMap }) {
+  // detected if the dependency is a single dependency or an array of alternative dependencies
   const isArray = Array.isArray(dependency)
 
   if(isArray) return (

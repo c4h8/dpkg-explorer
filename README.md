@@ -1,8 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About dpkg-explorer
 
 This is a simple app to browse .real files used by dpkg. 
 A demo can be accessed at
-[dpkg-explorer.herokuapp.com](https://dpkg-explorer.herokuapp.com/) 
+[dpkg-explorer.herokuapp.com](https://dpkg-explorer.herokuapp.com/)
+
+To inspect a .real file, click on the Upload File button on the top right
+and select the file.
+
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 

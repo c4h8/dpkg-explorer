@@ -1,3 +1,5 @@
+
+// parse one field of a .real file
 const parseAttribute = (name) => (input) => {
   const res = RegExp(`${name}: ([^]*?)(?=\n[^ ])`).exec(input)
   return res
@@ -32,6 +34,7 @@ const parseDependecies = input => {
     .sort());
 }
 
+// parses a .real file
 function parseFile(file) {
   try {
     const packageBlobs = file
@@ -46,15 +49,18 @@ function parseFile(file) {
       reverseDependencies: new Set([])
     }));
 
+    // create a sorted list of package names
     const packageNames = packages
       .map(p => p.name)
       .sort();
 
+    // map package names to package data
     let packageMap = {}
     packages.forEach(p => {
       packageMap[p.name] = p
     });
 
+    // construct reverse dependencies
     packages.forEach(p => {
       const name = p.name
 
@@ -64,10 +70,10 @@ function parseFile(file) {
       })
     });
 
+    // transform reverse dependencies for a set to an array
     packages.forEach(p => p.reverseDependencies = [...p.reverseDependencies ].sort())
 
     return [undefined, packageNames, packageMap];
-
   } catch(error) {
     return [error]
   }

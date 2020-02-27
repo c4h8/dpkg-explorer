@@ -10,8 +10,12 @@ function reducer(state, action) {
       return ({
         ...state,
         packageNames: action.packageNames,
-        packageMap: action.packageMap
+        packageMap: action.packageMap,
+        fileName: action.fileName
       })
+    }
+    case actionTypes.DELETE_PACKAGE_DATA: {
+      return ({})
     }
     default: {
       return state

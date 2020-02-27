@@ -2,11 +2,31 @@
   display: none;
 }
 
+.close-file {
+  padding: 6px 12px;
+  color: #fff;
+  background-color: #6bc55f;
+}
+
+.close-file__button {
+  margin-right: 12px;
+  border-radius: 9999px;
+  border: 2px solid #6bc55f;
+  color: #6bc55f;
+  background-color: #fff;
+}
+
+.close-file__button:hover {
+  border: 2px solid #fff;
+  color: #fff;
+  background-color: #6bc55f;
+}
+
 .file-upload {
   display: inline-block;
   padding: 6px 12px;
   color: #fff;
-  background-color: #99c793;
+  background-color: #6bc55f;
   cursor: pointer;
 }
 

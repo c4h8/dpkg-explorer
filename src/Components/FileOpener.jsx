@@ -1,13 +1,13 @@
-import React, { useRef, useContext } from 'react';
+import React, { useContext } from 'react';
 import parseFile from '../parseFile';
-import { setPackageData } from '../actions';
-import { dispatchContext } from '../StoreProvider';
+import { setPackageData, deletePackageData } from '../actions';
+import { dispatchContext, storeContext } from '../StoreProvider';
 
 import '../Styles/FileInput.css';
 
 function FileOpener() {
-  const fileRef = useRef(null);
   const dispatch = useContext(dispatchContext);
+  const state = useContext(storeContext);
 
   const onFileChange = (e) => {
     e.stopPropagation();
@@ -17,22 +17,37 @@ function FileOpener() {
     if (file) {
       const fileReader = new FileReader();
       fileReader.onloadend = (_e) => {
-        const [error, packageNames, packageMap] = parseFile(fileReader.result)
+        const [error, packageNames, packageMap] = parseFile(fileReader.result);
 
         if(error)
-          console.log('error in parsing file', error)
+          console.log('error in parsing file', error);
         else
-          dispatch(setPackageData(packageNames, packageMap));
+          dispatch(setPackageData(packageNames, packageMap, file.name));
       }
 
-      fileReader.readAsText(file)
+      fileReader.readAsText(file);
     }
   };
+
+  const closeFile = () => dispatch(deletePackageData());
+
+  if(state.fileName) return (
+    <div className="appbar">
+      <div className="close-file">
+        <button
+          className="close-file__button"
+          onClick={closeFile}
+        >
+          X
+        </button>
+        {state.fileName || 'asdasd'}
+      </div>
+    </div>
+  );
 
   return (
     <div className="appbar">
       <input
-        ref={fileRef}
         type="file"
         onChange={onFileChange}
         id="file-upload"

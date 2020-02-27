@@ -26,4 +26,4 @@ function PackageList() {
   )
 }
 
-export default PackageList
+export default PackageList;

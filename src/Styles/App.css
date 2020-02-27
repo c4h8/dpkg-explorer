@@ -8,7 +8,7 @@
 
 .packagelist {
   flex-shrink: 0;
-  background-color: antiquewhite;
+  background-color: fff;
   padding: 0px 30px;
   max-height: 100%;
   overflow-y: scroll;
@@ -30,6 +30,11 @@ a:visited {
   padding: 0 1.5rem 1.5rem 1.5rem;
   overflow-y: scroll
 }
+
+.package-details__container div:last-child { 
+  margin-bottom: 1.5rem;
+}
+
 
 .package-details__description {
   white-space: pre;

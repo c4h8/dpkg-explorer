@@ -3,11 +3,12 @@ export const actionTypes = {
   DELETE_PACKAGE_DATA: 'DELETE_PACKAGE_DATA'
 }
 
-export function setPackageData(packageNames = {}, packageMap = {}) {
+export function setPackageData(packageNames, packageMap, fileName) {
   return ({
     type: actionTypes.SET_PACKAGE_DATA,
     packageNames: packageNames,
-    packageMap: packageMap
+    packageMap: packageMap,
+    fileName: fileName
   })
 }
 
